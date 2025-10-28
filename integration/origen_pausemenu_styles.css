@@ -1,0 +1,207 @@
+/* ESTILOS CSS PARA ORIGEN_PAUSEMENU - DRTOKENS */
+/* Añadir este código al archivo CSS principal del origen_pausemenu */
+
+/* Contenedor principal de DrTokens */
+.drtokens-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 8px 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.drtokens-container:hover {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+    border-color: rgba(255, 215, 0, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Icono de DrTokens */
+.drtokens-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    animation: drTokensGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes drTokensGlow {
+    0% { box-shadow: 0 0 5px #ffd700; }
+    100% { box-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700; }
+}
+
+/* Información de tokens */
+.drtokens-info {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.drtokens-label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.drtokens-amount {
+    color: #ffd700;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.drtokens-last-reward {
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Animación para cuando se actualicen los tokens */
+.drtokens-updated {
+    animation: drTokensUpdate 1.5s ease-in-out;
+}
+
+@keyframes drTokensUpdate {
+    0% { 
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+        transform: scale(1);
+    }
+    50% { 
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+        transform: scale(1.02);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    100% { 
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+        transform: scale(1);
+    }
+}
+
+/* Estilo para el indicador en la barra superior (opcional) */
+.header-drtokens {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-left: 15px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.header-drtokens:hover {
+    background: rgba(255, 215, 0, 0.25);
+    border-color: rgba(255, 215, 0, 0.6);
+}
+
+.header-drtokens-icon {
+    width: 18px;
+    height: 18px;
+    background: #ffd700;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.header-drtokens-text {
+    color: #ffd700;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo responsivo para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .drtokens-container {
+        padding: 12px 15px;
+        margin: 6px 0;
+    }
+    
+    .drtokens-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .drtokens-label {
+        font-size: 14px;
+    }
+    
+    .drtokens-amount {
+        font-size: 18px;
+    }
+    
+    .drtokens-last-reward {
+        font-size: 11px;
+    }
+}
+
+/* Estilo especial para modo oscuro (si lo tiene origen_pausemenu) */
+.dark-mode .drtokens-container {
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8));
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.dark-mode .drtokens-container:hover {
+    background: linear-gradient(135deg, rgba(30, 30, 30, 0.95), rgba(20, 20, 20, 0.9));
+}
+
+/* Efecto de brillo para números grandes */
+.drtokens-amount.large-amount {
+    background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: goldShimmer 3s ease-in-out infinite;
+}
+
+@keyframes goldShimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Tooltip para mostrar información adicional */
+.drtokens-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.drtokens-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.drtokens-tooltip:hover::after {
+    opacity: 1;
+}
