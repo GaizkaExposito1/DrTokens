@@ -2,8 +2,8 @@ fx_version 'cerulean'
 game 'gta5'
 
 author 'DrHub'
-description 'Sistema de tokens por tiempo para QBCore'
-version '1.0.0'
+description 'Sistema avanzado de tokens con comandos de consola y webhooks Discord'
+version '2.1.0'
 
 shared_scripts {
     'config.lua'

@@ -88,14 +88,21 @@ Config.TimeSettings = {
 Config.Logging = {
     EnableLogs = true,           -- Habilitar logs en consola
     LogAdminActions = true,      -- Log cuando admins añaden/retiran tokens
-    LogHourlyRewards = false     -- Log cuando se dan recompensas por hora (puede ser spam)
+    LogHourlyRewards = false,    -- Log cuando se dan recompensas por hora (puede ser spam)
+    LogConsoleCommands = true,   -- Log cuando se intenta usar comandos de jugador desde consola
+    VerboseWebhooks = false      -- Log cada webhook enviado (para debugging)
 }
 
 -- Configuración de Discord Webhooks
 Config.Discord = {
-    EnableWebhooks = true,       -- Habilitar webhooks de Discord
+    EnableWebhooks = false,      -- Habilitar webhooks de Discord (cambiar a true cuando configures las URLs)
     
     -- URLs de los webhooks (configura tus propios webhooks aquí)
+    -- INSTRUCCIONES: 
+    -- 1. Ve a tu servidor de Discord
+    -- 2. Configuración del servidor > Integraciones > Webhooks
+    -- 3. Crear webhook para cada canal que quieras usar
+    -- 4. Copia la URL del webhook y reemplaza los placeholders de abajo
     Webhooks = {
         AdminActions = 'https://discord.com/api/webhooks/TU_WEBHOOK_ADMIN_AQUI',        -- Acciones de admins
         HourlyRewards = 'https://discord.com/api/webhooks/TU_WEBHOOK_REWARDS_AQUI',    -- Recompensas por hora
@@ -179,6 +186,18 @@ Config.Discord = {
             webhook = 'General',
             color = 'Success',
             title = '🚀 Sistema DrTokens Iniciado'
+        },
+        ConsoleCommand = {
+            enabled = true,
+            webhook = 'AdminActions',
+            color = 'Warning',
+            title = '⚠️ Comando desde Consola'
+        },
+        MassTokens = {
+            enabled = true,
+            webhook = 'AdminActions',
+            color = 'Success',
+            title = '🎉 Tokens Masivos Distribuidos'
         }
     },
     
@@ -186,7 +205,7 @@ Config.Discord = {
     ServerInfo = {
         name = 'Tu Servidor FiveM',  -- Nombre de tu servidor
         icon = 'https://i.imgur.com/placeholder.png',  -- URL del icono de tu servidor
-        footer = 'DrTokens System v1.0'
+        footer = 'DrTokens System v2.1.0'
     }
 }
 
@@ -194,4 +213,12 @@ Config.Discord = {
 Config.Database = {
     TableName = 'player_drtokens',
     InitializeNewPlayers = true  -- Crear entrada automáticamente para nuevos jugadores
+}
+
+-- Configuración de seguridad para comandos masivos
+Config.Security = {
+    MaxTokensPerPlayer = 1000,      -- Máximo de tokens por jugador desde el juego
+    MaxTokensConsole = 5000,        -- Máximo de tokens por jugador desde consola
+    ConfirmationThreshold = 100,    -- Cantidad que requiere confirmación desde el juego
+    ConsoleConfirmationThreshold = 500  -- Cantidad que requiere confirmación desde consola
 }

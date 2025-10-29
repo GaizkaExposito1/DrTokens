@@ -58,6 +58,16 @@ Para mostrar tokens en el pause menu, sigue la guía en `integration/INSTALACION
 - `/settokens [id] [cantidad]` - Establecer cantidad exacta de tokens 🆕
 - `/checktokens [id]` - Ver tokens de cualquier jugador
 
+### 🖥️ Comandos de Consola del Servidor (Para administradores de servidor)
+- `drp_giveall [cantidad]` - Dar tokens a todos los jugadores conectados 🆕
+- `drp_help` - Mostrar ayuda completa de comandos de consola 🆕
+- `drp_stats` - Ver estadísticas del sistema de tokens 🆕
+- `drp_config` - Ver configuración actual del sistema 🆕
+- `drp_testwebhook [tipo]` - Probar webhook específico (admin/player/reward/general) 🆕
+- `drp_testallwebhooks` - Probar todos los webhooks disponibles 🆕
+- `drp_webhookstatus` - Ver estado de configuración de webhooks 🆕
+- `drp_webhookhelp` - Ayuda específica para sistema de webhooks 🆕
+
 ## ⚙️ Configuración Avanzada
 
 ### 🛠️ Opciones Principales
@@ -204,6 +214,115 @@ end)
 RegisterNetEvent('drtokens:adminAction', function(adminId, targetId, action, amount, newBalance)
     -- Tu código aquí
 end)
+
+-- Evento cuando se ejecuta distribución masiva 🆕
+RegisterNetEvent('drtokens:massDistribution', function(amount, playersAffected, totalDistributed)
+    -- Tu código aquí
+end)
+```
+
+## 🖥️ Sistema de Comandos de Consola Avanzado 🆕
+
+### 📋 **Guía Completa de Comandos de Consola**
+El sistema DrTokens incluye un conjunto completo de comandos especializados para la administración desde la consola del servidor. Estos comandos están diseñados específicamente para administradores de servidor y ofrecen funcionalidades avanzadas no disponibles en los comandos de juego.
+
+### 🎯 **Comandos Principales**
+
+#### 📊 **Información y Estadísticas**
+```console
+drp_help                    # Muestra ayuda completa con todos los comandos
+drp_stats                   # Estadísticas del sistema (jugadores, tokens, etc.)
+drp_config                  # Configuración actual del sistema
+```
+
+#### 🎁 **Distribución Masiva de Tokens**
+```console
+drp_giveall [cantidad]      # Da tokens a todos los jugadores conectados
+                            # - Sistema de confirmación para cantidades >100
+                            # - Logging completo en consola y Discord
+                            # - Manejo robusto de errores
+```
+
+**Ejemplo de uso:**
+```console
+drp_giveall 50             # Da 50 tokens a todos los jugadores
+drp_giveall 150            # Requiere confirmación (cantidad >100)
+```
+
+#### 🔧 **Sistema de Testing de Webhooks**
+```console
+drp_testwebhook [tipo]      # Prueba webhook específico
+drp_testallwebhooks         # Prueba todos los webhooks
+drp_webhookstatus           # Estado de configuración de webhooks
+drp_webhookhelp            # Ayuda específica para webhooks
+```
+
+**Tipos de webhook disponibles:**
+- `admin` - Webhook de acciones administrativas
+- `player` - Webhook de acciones de jugadores  
+- `reward` - Webhook de recompensas
+- `general` - Webhook general del sistema
+
+**Ejemplos:**
+```console
+drp_testwebhook admin      # Prueba solo el webhook de admin
+drp_testallwebhooks        # Ejecuta prueba completa de todos
+drp_webhookstatus          # Verifica configuración actual
+```
+
+### 🛡️ **Características de Seguridad**
+
+#### ⚠️ **Sistema de Confirmación**
+- **Distribuciones masivas >100 tokens**: Requieren confirmación adicional
+- **Logging automático**: Todas las operaciones se registran automáticamente
+- **Validación de entrada**: Verificación de parámetros y rangos válidos
+
+#### 📝 **Logging Especializado**
+- **Consola del servidor**: Logs detallados con timestamps y contexto
+- **Discord webhooks**: Notificaciones automáticas de operaciones masivas
+- **Separación de contextos**: Logs diferentes para consola vs. comandos de jugador
+
+### 🔍 **Troubleshooting con Comandos de Consola**
+
+#### 🔧 **Diagnóstico de Webhooks**
+1. **Verificar configuración**: `drp_webhookstatus`
+2. **Probar conexión individual**: `drp_testwebhook [tipo]`
+3. **Prueba completa**: `drp_testallwebhooks`
+4. **Ayuda específica**: `drp_webhookhelp`
+
+#### 📊 **Monitoreo del Sistema**
+1. **Ver estadísticas**: `drp_stats`
+2. **Revisar configuración**: `drp_config`
+3. **Ayuda general**: `drp_help`
+
+### 💡 **Casos de Uso Comunes**
+
+#### 🎉 **Eventos Especiales**
+```console
+# Evento de doble tokens para todos
+drp_giveall 100
+
+# Verificar que los webhooks funcionan antes del evento
+drp_testallwebhooks
+```
+
+#### 🔧 **Mantenimiento**
+```console
+# Verificar estado del sistema
+drp_stats
+drp_config
+
+# Probar comunicación Discord
+drp_webhookstatus
+drp_testwebhook admin
+```
+
+#### 🚀 **Puesta en Producción**
+```console
+# Lista de verificación pre-lanzamiento
+drp_config                  # Verificar configuración
+drp_testallwebhooks        # Probar todos los webhooks
+drp_stats                  # Verificar estadísticas base
 ```
 
 ## 📁 Estructura de Archivos Completa
@@ -228,12 +347,15 @@ drtokens/
 └── WEBHOOK_UPDATE_SUMMARY.md          # Resumen de actualizaciones 🆕
 ```
 
-## 📝 Sistema de Logs Completo
+## � Sistema de Logs Completo
 
-### 🖥️ **Logs de Consola**
-- Todas las acciones importantes se registran en la consola del servidor
-- Información detallada de errores y debugging
-- Seguimiento de operaciones de base de datos
+### 🖥️ **Logs de Consola Avanzados** 🆕
+- **Registro completo**: Todas las acciones importantes se registran automáticamente
+- **Comandos de consola**: Sistema especial de logging para comandos ejecutados desde consola
+- **Debugging avanzado**: Información detallada de errores con contexto completo
+- **Seguimiento de operaciones**: Monitoreo de todas las operaciones de base de datos
+- **Logs separados**: Diferentes niveles de logging para consola vs. Discord webhooks
+- **Sistema administrativo**: Logging especial para acciones masivas como `drp_giveall`
 
 ### 📡 **Discord Webhooks** (11 tipos de logs)
 El sistema incluye un sistema completo de logging a Discord con **11 tipos diferentes** de logs:
@@ -256,6 +378,9 @@ El sistema incluye un sistema completo de logging a Discord con **11 tipos difer
 
 #### ⚙️ **Logs del Sistema** (General webhook)
 - **SystemStart**: Inicio del sistema con configuración actual
+- **ConsoleCommand**: Comandos ejecutados desde la consola del servidor 🆕
+- **MassDistribution**: Distribución masiva de tokens (drp_giveall) 🆕
+- **WebhookTest**: Pruebas de webhooks realizadas desde consola 🆕
 
 ### 🎨 **Características de los Logs Discord**
 - **Embeds ricos**: Información organizada y visualmente atractiva
@@ -265,6 +390,26 @@ El sistema incluye un sistema completo de logging a Discord con **11 tipos difer
 - **Configurables**: Cada tipo de log se puede habilitar/deshabilitar individualmente
 
 ## 🛠️ Personalización Avanzada
+
+### 🖥️ **Sistema de Comandos de Consola** 🆕
+El sistema incluye un conjunto completo de comandos para administrar desde la consola del servidor:
+
+#### 📋 **Comandos Básicos**
+- **drp_help**: Muestra ayuda completa con todos los comandos disponibles
+- **drp_stats**: Estadísticas del sistema (jugadores online, tokens distribuidos, etc.)
+- **drp_config**: Muestra la configuración actual del sistema
+
+#### 🎁 **Distribución Masiva**
+- **drp_giveall [cantidad]**: Da tokens a todos los jugadores conectados
+  - Sistema de confirmación para cantidades superiores a 100 tokens
+  - Logging completo de la operación en consola y Discord
+  - Manejo de errores robusto
+
+#### 🔧 **Testing de Webhooks**
+- **drp_testwebhook [tipo]**: Prueba webhook específico (admin/player/reward/general)
+- **drp_testallwebhooks**: Ejecuta prueba completa de todos los webhooks
+- **drp_webhookstatus**: Verifica estado y configuración de webhooks
+- **drp_webhookhelp**: Guía específica para troubleshooting de webhooks
 
 ### ⏰ **Cambiar Tiempo de Recompensa**
 En `config.lua`, modifica `Config.TimeSettings.HourlyTime` (en segundos):
@@ -319,11 +464,12 @@ Config.Discord = {
         HourlyReward = { enabled = false },  -- Evita spam
         AdminAddTokens = { enabled = true },
         TokenTransfer = { enabled = true },
+        ConsoleCommand = { enabled = true },  -- 🆕 Comandos de consola
+        MassDistribution = { enabled = true },  -- 🆕 Distribución masiva
+        WebhookTest = { enabled = true },  -- 🆕 Pruebas de webhooks
         -- ... más configuraciones
     }
 }
-```
-Config.TimeSettings.HourlyTime = 1800  -- 30 minutos
 ```
 
 ### Cambiar Cantidad de Tokens
@@ -384,6 +530,8 @@ Config.Permissions.AdminGroup = 'superadmin'  -- Cambiar grupo
 2. **Configuración**: Confirma que `EnableWebhooks = true`
 3. **Logs específicos**: Revisa que el tipo de log esté habilitado
 4. **Permisos Discord**: El webhook debe tener permisos de enviar mensajes
+5. **Testing**: Usa `drp_testwebhook [tipo]` desde consola para probar 🆕
+6. **Estado**: Ejecuta `drp_webhookstatus` para ver configuración actual 🆕
 
 ### ❌ **Origen pausemenu no muestra tokens**
 1. **Integración**: Sigue la guía en `integration/INSTALACION_ORIGEN_PAUSEMENU.md`
@@ -398,18 +546,24 @@ Config.Permissions.AdminGroup = 'superadmin'  -- Cambiar grupo
 - **🔄 Anti-farm**: Imposible hacer farm desconectándose y reconectándose
 - **🎁 Bonificaciones automáticas**: Sistema que recompensa la dedicación
 - **🏆 Competencia sana**: Ranking que fomenta el tiempo de juego
+- **🖥️ Administración de consola**: Sistema completo de comandos para administradores 🆕
+- **🔧 Testing integrado**: Herramientas para probar webhooks y validar configuración 🆕
 
 ### 🛡️ **Seguridad Avanzada**
 - **👮‍♂️ Control granular**: Permisos específicos para cada función
 - **📡 Monitoreo total**: Logs completos de todas las actividades
 - **🔒 Validaciones**: Verificación exhaustiva de datos y permisos
-- **� Anti-abuse**: Detección de intentos no autorizados
+- **🚫 Anti-abuse**: Detección de intentos no autorizados
+- **🖥️ Logging de consola**: Registro separado para comandos administrativos 🆕
+- **⚠️ Sistema de confirmación**: Protección para operaciones masivas críticas 🆕
 
 ### 🔧 **Flexibilidad Total**
 - **⚙️ Configuración completa**: Personaliza cada aspecto del sistema
-- **� Exports robustos**: Integración fácil con otros scripts
+- **🔗 Exports robustos**: Integración fácil con otros scripts
 - **🎮 UI integrada**: Compatible con origen_pausemenu
 - **📱 Discord ready**: Sistema de notificaciones profesional
+- **🖥️ Administración avanzada**: Sistema completo de comandos de consola 🆕
+- **🔍 Debugging integrado**: Herramientas de testing y diagnóstico built-in 🆕
 
 ## � Próximas Actualizaciones
 
@@ -428,17 +582,19 @@ Config.Permissions.AdminGroup = 'superadmin'  -- Cambiar grupo
 ## 📄 Información del Resource
 
 ### 📋 **Detalles Técnicos**
-- **Versión Actual**: 2.0.0 (Completa con Discord & Transferencias)
+- **Versión Actual**: 2.1.0 (Sistema de Consola Completo + Testing de Webhooks) 🆕
 - **Compatible con**: QB-Core Framework
 - **Dependencias**: oxmysql
 - **Base de datos**: MySQL/MariaDB
+- **Funcionalidades**: Sistema completo con comandos de consola y testing avanzado
 - **Última Actualización**: Octubre 2025
 
 ### 👨‍💻 **Desarrollo**
 - **Autor**: DrTokens System Development Team
-- **Soporte**: Completo con documentación detallada
+- **Soporte**: Completo con documentación detallada y sistema de testing integrado 🆕
 - **Licencia**: Open Source para servidores FiveM
-- **Actualizaciones**: Regulares con nuevas características
+- **Actualizaciones**: Sistema modular con comandos de consola para administración avanzada
+- **Testing**: Herramientas integradas para validación de webhooks y sistema completo
 
 ---
 
@@ -448,5 +604,13 @@ Para obtener ayuda adicional, consulta:
 - 🔧 **integration/INSTALACION_ORIGEN_PAUSEMENU.md** - Integración UI
 - 📊 **WEBHOOK_UPDATE_SUMMARY.md** - Resumen de características
 - 🗃️ **config.lua** - Todas las opciones de configuración
+- 🖥️ **Comandos de consola integrados** - Usa `drp_help` para ayuda en tiempo real 🆕
 
-**¡Disfruta tu sistema DrTokens completo y profesional! 🚀**
+### 🛠️ **Herramientas de Diagnóstico Integradas** 🆕
+El sistema incluye herramientas built-in para troubleshooting:
+- **Webhook testing**: `drp_testallwebhooks` para verificar conectividad Discord
+- **Estado del sistema**: `drp_stats` y `drp_config` para diagnóstico rápido
+- **Ayuda contextual**: `drp_webhookhelp` para problemas específicos de webhooks
+- **Logging avanzado**: Todos los comandos de consola se registran automáticamente
+
+**¡Disfruta tu sistema DrTokens completo y profesional con herramientas de administración avanzadas! 🚀**
